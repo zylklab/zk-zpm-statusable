@@ -1,4 +1,4 @@
-= Basic metadata to deal with document lifecycle status =
+# Basic metadata to deal with document lifecycle status
 
 This project is a simple example for using a custom metadata property for dealing the status in the document lifecycle. It provides an easy visualization of statusable properties (status, priority and percentage) in Alfresco document library via custom metadata templates and indicators, which may be improved with the use of custom facets in Alfresco search, virtual folders for custom Alfresco queries or custom dashlets.
 
