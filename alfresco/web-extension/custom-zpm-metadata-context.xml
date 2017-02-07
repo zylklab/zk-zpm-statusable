@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+
+<beans>   
+        <bean id="webscripts.zpm.resources"
+                class="org.springframework.extensions.surf.util.ResourceBundleBootstrapComponent">
+                <property name="resourceBundles">
+                        <list>
+                                <value>alfresco.web-extension.messages.zpm</value>
+                        </list>
+                </property>
+        </bean>
+
+        <bean id="evaluator.doclib.metadata.isZPMContent"
+                parent="evaluator.doclib.action.hasAspect">
+                <property name="aspects">
+                        <list>
+                                <value>zpm:statusable</value>
+                        </list>
+                </property>
+        </bean>
+
+        <bean id="ZPMFormsClientConfig" class="org.springframework.extensions.config.ConfigBootstrap" init-method="register">
+                <property name="configService" ref="web.config" />
+                <property name="configs">
+                        <list>
+                                <value>classpath:alfresco/web-extension/forms/zpm-config-custom.xml</value>
+                        </list>
+                </property>
+        </bean>
+
+        <bean id="evaluator.zpm.doclib.indicator.status1" parent="evaluator.doclib.action.value">
+                <property name="accessor" value="node.properties.zpm:mystatus" />
+                <property name="comparator">
+                        <bean class="org.alfresco.web.evaluator.StringEqualsComparator">
+                                <property name="value" value="zpm.status.status1" />
+                        </bean>
+                </property>
+        </bean>
+
+        <bean id="evaluator.zpm.doclib.indicator.status2" parent="evaluator.doclib.action.value">
+                <property name="accessor" value="node.properties.zpm:mystatus" />
+                <property name="comparator">
+                        <bean class="org.alfresco.web.evaluator.StringEqualsComparator">
+                                <property name="value" value="zpm.status.status2" />
+                        </bean>
+                </property>
+        </bean>
+
+        <bean id="evaluator.zpm.doclib.indicator.status3" parent="evaluator.doclib.action.value">
+                <property name="accessor" value="node.properties.zpm:mystatus" />
+                <property name="comparator">
+                        <bean class="org.alfresco.web.evaluator.StringEqualsComparator">
+                                <property name="value" value="zpm.status.status3" />
+                        </bean>
+                </property>
+        </bean>
+
+        <bean id="evaluator.zpm.doclib.indicator.status4" parent="evaluator.doclib.action.value">
+                <property name="accessor" value="node.properties.zpm:mystatus" />
+                <property name="comparator">
+                        <bean class="org.alfresco.web.evaluator.StringEqualsComparator">
+                                <property name="value" value="zpm.status.status4" />
+                        </bean>
+                </property>
+        </bean>
+
+</beans>

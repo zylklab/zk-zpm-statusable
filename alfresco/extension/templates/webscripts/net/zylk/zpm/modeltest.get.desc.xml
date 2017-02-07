@@ -1,0 +1,8 @@
+<webscript>
+   <shortname>Custom Model Test</shortname>
+   <family>zylk</family>
+   <description>Creates content of a custom type</description>
+   <url>/net/zylk/zpm/{documentName}</url>
+   <format default="html">extension</format>
+   <authentication>user</authentication>
+</webscript> 

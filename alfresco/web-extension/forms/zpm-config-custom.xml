@@ -1,0 +1,327 @@
+<!-- Share form config -->
+<alfresco-config>
+
+   <config evaluator="string-compare" condition="DocLibCustom">
+	<dependencies>
+		<js src="/custom/zpm-metadata.js" />
+	</dependencies>
+   </config>
+
+   <config evaluator="string-compare" condition="DocumentLibrary">
+      <aspects>
+         <!-- Aspects that a user can see -->
+         <visible>
+            <aspect name="zpm:statusable" />
+            <!-- <aspect name="zpm:assignable" /> -->
+         </visible>
+      </aspects>
+
+	<indicators>
+
+	 	<indicator id="zk-my-status-status1" index="10" label="zpm.status.status1">
+	          <evaluator>evaluator.zpm.doclib.indicator.status1</evaluator>
+		</indicator>
+
+	 	<indicator id="zk-my-status-status2" index="10" label="zpm.status.status2">
+	          <evaluator>evaluator.zpm.doclib.indicator.status2</evaluator>
+		</indicator>
+
+	 	<indicator id="zk-my-status-status3" index="10" label="zpm.status.status3">
+	          <evaluator>evaluator.zpm.doclib.indicator.status3</evaluator>
+		</indicator>
+
+	 	<indicator id="zk-my-status-status4" index="10" label="zpm.status.status4">
+	          <evaluator>evaluator.zpm.doclib.indicator.status4</evaluator>
+		</indicator>
+
+	</indicators>
+
+<!--
+    <types>
+		<type name="cm:content">
+			<subtype name="zpm:zpmDoc" />
+		</type>
+
+		<type name="cm:folder">
+		</type>
+
+		<type name="trx:transferTarget">
+			<subtype name="trx:fileTransferTarget" />
+		</type>
+	</types>
+-->
+
+    <metadata-templates>
+		<template id="isZPM">
+			<evaluator>evaluator.doclib.metadata.isZPMContent</evaluator>
+			<line index="10" id="date" view="detailed">{date}{size}</line>
+			<line index="20" id="ZPMContent" evaluator="evaluator.doclib.metadata.isZPMContent">{ZPM}</line>
+			<line index="30" id="tags" view="detailed">{tags}</line>
+			<line index="40" id="social" view="detailed">{social}</line>
+		</template>
+	</metadata-templates>
+
+  </config>
+
+<!--
+  <config evaluator="string-compare" condition="AdvancedSearch">
+      <advanced-search>
+         <forms>
+            <form labelId="search.form.label.zpm_zpmDoc" descriptionId="search.form.desc.zpm_zpmDoc">zpm:zpmDoc</form>
+         </forms>
+      </advanced-search>
+  </config>
+-->
+
+        <config evaluator="aspect" condition="zpm:assignable">
+                <forms>
+                        <form>
+                                <field-visibility>
+                                        <show id="zpm:assigned" />
+                                        <show id="zpm:username" />
+                                </field-visibility>
+                                <appearance>
+                                        <field id="zpm:assigned" />
+                                        <field id="zpm:username" />
+                                </appearance>
+                        </form>
+                </forms>
+        </config>
+
+        <config evaluator="aspect" condition="zpm:statusable">
+                <forms>
+                        <form>
+                                <field-visibility>
+                                        <show id="zpm:mystatus" />
+                                        <show id="zpm:priority" />
+                                        <show id="zpm:percentage" />
+                                </field-visibility>
+                                <appearance>
+                                        <field id="zpm:mystatus" />
+                                        <field id="zpm:priority" />
+                                        <field id="zpm:percentage" />
+                                </appearance>
+                        </form>
+                </forms>
+        </config>
+
+	<config evaluator="node-type" condition="zpm:zpmDoc">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="cm:title" force="true" />
+					<show id="cm:description" force="true" />
+					<show id="cm:creator" for-mode="view" />
+					<show id="cm:created" for-mode="view" />
+					<show id="cm:modifier" for-mode="view" />
+					<show id="cm:modified" for-mode="view" />
+					<!-- tags and categories -->
+					<show id="cm:taggable" for-mode="edit" force="true" />
+					<show id="cm:categories" for-mode="edit" force="true" />
+					
+					<show id="zpm:mystatus" />
+					<show id="zpm:priority" />
+					<show id="zpm:percentComplete" />
+					<show id="zpm:assigned" />
+
+				</field-visibility>
+
+				<appearance>
+					<set id="common" appearance="fieldset" label-id="zpm.set.common.label" />
+					<set id="zpm" appearance="fieldset" label-id="zpm.set.custom.label" />
+					<set id="commonExt" appearance="fieldset" label-id="zpm.set.common.ext.label" />
+					<field id="cm:name" set="common">
+						<control>
+							<control-param name="maxLength">255</control-param>
+						</control>
+					</field>
+					<field id="cm:title" set="common">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+					</field>
+					<field id="cm:description" set="common">
+						<control>
+							<control-param name="activateLinks">true</control-param>
+						</control>
+					</field>
+					<field id="cm:creator" set="common" />
+					<field id="cm:created" set="common" />
+					<field id="cm:modifier" set="common" />
+					<field id="cm:modified" set="common" />
+					<field id="cm:taggable" set="common">
+						<control>
+							<control-param name="compactMode">true</control-param>
+							<control-param name="params">aspect=cm:taggable</control-param>
+							<control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+							<control-param name="createNewItemIcon">tag</control-param>
+						</control>
+					</field>
+					<field id="cm:categories" set="common">
+						<control>
+							<control-param name="compactMode">true</control-param>
+						</control>
+					</field>
+
+					<field id="zpm:mystatus" set="zpm">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:priority" set="zpm">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>					
+					<field id="zpm:percentage" set="zpm"/>
+					<field id="zpm:assigned" set="zpm"/>
+					<field id="mimetype" set="commonExt">
+						<control template="/org/alfresco/components/form/controls/mimetype.ftl" />
+					</field>
+					<field id="size" set="commonExt">
+						<control template="/org/alfresco/components/form/controls/size.ftl" />
+					</field>
+
+				</appearance>
+			</form>
+			<form id="doclib-simple-metadata">
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="cm:title" force="true" />
+					<show id="cm:description" force="true" />
+					<show id="zpm:mystatus" />
+					<show id="zpm:priority" />
+					<show id="zpm:percentage" />
+					<show id="zpm:assigned" />
+				</field-visibility>
+				<edit-form template="../documentlibrary/forms/doclib-simple-metadata.ftl" />
+				<appearance>
+					<field id="cm:name">
+						<control>
+							<control-param name="maxLength">255</control-param>
+						</control>
+					</field>
+					<field id="cm:title">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+					</field>
+					<field id="cm:description">
+						<control>
+							<control-param name="activateLinks">true</control-param>
+						</control>
+					</field>
+					
+					<field id="zpm:mystatus">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:priority">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:percentage"/>
+					<field id="zpm:assigned" />
+	
+				</appearance>
+			</form>
+		</forms>
+	</config>
+
+	<config evaluator="model-type" condition="zpm:zpmDoc">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="cm:title" force="true" />
+					<show id="cm:description" force="true" />
+					<show id="cm:taggable" force="true" />
+					<show id="cm:categories" force="true" />
+
+					<show id="zpm:mystatus" />
+					<show id="zpm:priority" />
+					<show id="zpm:percentage" />
+					<show id="zpm:assigned" />
+				</field-visibility>
+
+				<appearance>
+					<set id="common" appearance="fieldset" label-id="zpm.set.common.label" />
+					<set id="zpm" appearance="fieldset" label-id="zpm.set.custom.label" />
+					<field id="cm:name" set="common">
+						<control>
+							<control-param name="maxLength">255</control-param>
+						</control>
+					</field>
+					<field id="cm:title" set="common">
+						<control template="/org/alfresco/components/form/controls/textfield.ftl" />
+					</field>
+					<field id="cm:description" set="common">
+						<control>
+							<control-param name="activateLinks">true</control-param>
+						</control>
+					</field>
+					
+					<field id="cm:taggable" set="common">
+						<control>
+							<control-param name="compactMode">true</control-param>
+							<control-param name="params">aspect=cm:taggable</control-param>
+							<control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+							<control-param name="createNewItemIcon">tag</control-param>
+						</control>
+					</field>
+					<field id="cm:categories" set="common">
+						<control>
+							<control-param name="compactMode">true</control-param>
+						</control>
+					</field>
+								
+					<field id="zpm:mystatus" set="zpm">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:priority" set="zpm">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:percentage" set="zpm"/>
+					<field id="zpm:assigned" set="zpm"/>
+				</appearance>
+
+			</form>
+			<form id="search">
+				<field-visibility>
+					<show id="cm:name" force="true" />
+					<show id="cm:title" force="true" />
+					<show id="cm:description" force="true" />
+					<show id="cm:taggable" for-mode="edit" force="true" />
+					<show id="cm:categories" for-mode="edit" force="true" />
+					
+					<show id="zpm:mystatus" />
+					<show id="zpm:priority" />
+					<show id="zpm:percentage" />
+					<show id="zpm:assigned" />
+
+				</field-visibility>
+				<appearance>
+					<set id="common" appearance="fieldset" label-id="zpm.set.common.label" />
+					<set id="zpm" appearance="fieldset" label-id="zpm.set.custom.label" />
+
+					<field id="cm:name" set="common"></field>
+					<field id="cm:title" set="common"></field>
+					<field id="cm:description" set="common"></field>
+					<field id="cm:taggable" set="common">
+						<control>
+							<control-param name="compactMode">true</control-param>
+							<control-param name="params">aspect=cm:taggable</control-param>
+							<control-param name="createNewItemUri">/api/tag/workspace/SpacesStore</control-param>
+							<control-param name="createNewItemIcon">tag</control-param>
+						</control>
+					</field>
+					<field id="cm:categories" set="common">
+						<control>
+							<control-param name="compactMode">true</control-param>
+						</control>
+					</field>
+					<field id="zpm:mystatus" set="zpm">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:priority" set="zpm">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl"/>
+					</field>
+					<field id="zpm:percentage" set="zpm"/>
+					<field id="zpm:assigned" set="zpm"/>
+				</appearance>
+			</form>
+		</forms>
+	</config>
+
+</alfresco-config>

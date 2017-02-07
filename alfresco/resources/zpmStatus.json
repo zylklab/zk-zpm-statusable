@@ -1,0 +1,53 @@
+{
+	"name" : "My Status Content Model",
+	"nodes" : [
+		{
+		"id" : "100",
+		"name" : "Documents with Status",
+		"description" : "Files with aspect zpm:statusable",
+		"nodes" : [
+			{
+				"id" : "101",
+				"name" : "All documents with status",
+				"description" : "ASPECT:'zpm:statusable'",
+				"search" : {
+					"language" : "fts-alfresco",
+					"query" : "(PATH:'%ACTUAL_PATH%//*') AND ASPECT:'zpm:statusable'"
+				}
+			},{
+				"id" : "102",
+				"name" : "Status - Not started",
+				"description" : "ASPECT:'zpm:statusable' AND @zpm:mystatus:'zpm.status.status1'",
+				"search" : {
+					"language" : "fts-alfresco",
+					"query" : "(PATH:'%ACTUAL_PATH%//*') AND @zpm:mystatus:'zpm.status.status1'"
+				}
+			},{
+				"id" : "103",
+				"name" : "Status - Draft",
+				"description" : "ASPECT:'zpm:statusable' AND @zpm:mystatus:'zpm.status.status2'",
+				"search" : {
+					"language" : "fts-alfresco",
+					"query" : "(PATH:'%ACTUAL_PATH%//*') AND @zpm:mystatus:'zpm.status.status2'"
+				}
+			},{
+				"id" : "104",
+				"name" : "Status - Accepted",
+				"description" : "ASPECT:'zpm:statusable' AND @zpm:mystatus:'zpm.status.status3'",
+				"search" : {
+					"language" : "fts-alfresco",
+					"query" : "(PATH:'%ACTUAL_PATH%//*') AND @zpm:mystatus:'zpm.status.status3'"
+				}
+			},{
+				"id" : "105",
+				"name" : "Status - Cancelled",
+				"description" : "ASPECT:'zpm:statusable' AND @zpm:mystatus:'zpm.status.status4'",
+				"search" : {
+					"language" : "fts-alfresco",
+					"query" : "(PATH:'%ACTUAL_PATH%//*') AND @zpm:mystatus:'zpm.status.status4'"
+				}
+			}
+		]
+		}
+	]
+}
