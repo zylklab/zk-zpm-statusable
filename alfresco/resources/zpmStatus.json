@@ -32,7 +32,7 @@
 				}
 			},{
 				"id" : "104",
-				"name" : "Status - Accepted",
+				"name" : "Status - Approved",
 				"description" : "ASPECT:'zpm:statusable' AND @zpm:mystatus:'zpm.status.status3'",
 				"search" : {
 					"language" : "fts-alfresco",
