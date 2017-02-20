@@ -21,6 +21,15 @@ Once Alfresco is started, upload alfresco/resources/zpmStatus.json to /Data Dict
 
 Once installed, you may apply directly zpm:statusable aspect to documents, or via content rule. You  may optionally be interested in adding zpm:mystatus as a facet in Alfresco Search Manager for obtaining the number of working documents with status aspect, for example via ASPECT:"zpm:statusable" search. Also, it is very useful to control the status of your documents in a Site project with a Smart Folder getting custom filters.
 
+### Screenshots 
+In document library:
+
+![Statusable DocLib](screenshots/status-document-library.png)
+
+Via smart folders:
+
+![Statusable Smart](screenshots/status-smart.png)
+
 ## More things to do
  - Use Alfresco Maven SDK and separate in two AMPs
  - Program behaviours depending on status
