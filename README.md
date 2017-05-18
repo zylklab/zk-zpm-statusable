@@ -6,16 +6,21 @@ This simple aproximation is document-centric, and not related to a workflow task
 
 ## Packaging
 
-You may pack it with jar command. Go into the directory that you unzipped, or cloned via git:
+Just generate maven packages. Go into the directory that you unzipped, or cloned via git:
 
     $ git clone https://github.com/zylklab/zk-zpm-statusable
     $ cd zk-zpm-statusable
-    $ jar -cf zk-zpm-statusable.jar *
+    $ cd zk-zpm-statusable-repo
+    $ mvn clean && mvn package -DskipTests=true
+    $ cd ..
+    $ cd zk-zpm-statusable-share
+    $ mvn clean && mvn package -DskipTests=true
+
+The generated AMPs are located in corresponding target directories. 
 
 ## Installation
 
-Install it, copying the corresponding jar into $TOMCAT/shared/lib and restart Alfresco service. 
-Once Alfresco is started, upload alfresco/resources/zpmStatus.json to /Data Dictionary/Smart Folder Templates for using smart templates in your site projects.
+ - Just copy the corresponding AMP into $ALF_HOME/amps and $ALF_HOME/amps_share, stop Alfresco service, apply AMPs script ($ALF_HOME/bin/apply_amps.sh) and start Alfresco service.
 
 ## Using
 
@@ -30,8 +35,7 @@ Via smart folders:
 
 ![Statusable Smart](screenshots/status-smart.png)
 
-## More things to do
- - Use Alfresco Maven SDK and separate in two AMPs
+## TODO 
  - Program behaviours depending on status
  - Audit status changes
 
